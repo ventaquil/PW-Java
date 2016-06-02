@@ -55,14 +55,14 @@ public class MainPanel extends JPanel {
         g2D.fill(new Rectangle2D.Double(24, 0, 19, 104));
         g2D.fill(new RoundRectangle2D.Double(20, 104, 100, 90, 8, 8));
         g2D.fill(new Rectangle2D.Double(0, 170, 20, 18));
-        g2D.fill(new Rectangle2D.Double(120, 110, 36, 24));
+        g2D.fill(new Rectangle2D.Double(120, 110, 36, 25));
 
         g2D.setColor(new Color(160, 160, 160));
         g2D.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{2}, 0));
         g2D.draw(new Line2D.Float(25, 101, 42, 101));
 
         g2D.setStroke(new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0));
-        g2D.draw(new RoundRectangle2D.Double(122, 112, 32, 20, 4, 4));
+        g2D.draw(new RoundRectangle2D.Double(122, 112, 32, 21, 4, 4));
 
         // Draw cars
         g2D.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));

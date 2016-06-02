@@ -55,7 +55,7 @@ public abstract class Path {
         Integer position = car.getQPosition() - 106;
         
         if (index == 0) {
-        car.goToFirstPosition();
+            car.goToFirstPosition();
         } else if (index == 1) {
             car.goToSecondPosition();
         } else if (index == 2) {
@@ -70,6 +70,28 @@ public abstract class Path {
     private static Point from5State(Car car)
     {
         return new Point(41, 0);
+    }
+
+    private static Point from6State(Car car)
+    {
+        Integer x = 41;
+        Integer y = 68;
+
+        Integer position = car.getQPosition();
+
+        if (position > 25) {
+            x += position - 25;
+
+            if (position < 46) {
+                y += position;
+            } else {
+                y += 46;
+            }
+        } else {
+            y += position;
+        }
+
+        return new Point(x, y);
     }
 
     public static Point generatePosition(Car car)
@@ -88,7 +110,7 @@ public abstract class Path {
             case 5:
                 return from5State(car);
             case 6:
-                break;
+                return from6State(car);
         }
 
         System.exit(0);
@@ -97,6 +119,8 @@ public abstract class Path {
 
     public static Double generateRotation(Car car)
     {
+        Integer alpha = null;
+
         switch (car.getQ()) {
             case 0:
             case 1:
@@ -104,11 +128,29 @@ public abstract class Path {
             case 3:
             case 4:
             case 5:
-                return Math.toRadians(90);
+                alpha = 90;
+                break;
+            case 6:
+                Integer position = car.getQPosition();
+
+                if (position < 18) {
+                    alpha = 90;
+                } else {
+                    if (position < 46) {
+                        alpha = (new Double((-45.0 / 14.0) * position + (1035.0 / 7.0))).intValue();
+                    } else {
+                        alpha = 0;
+                    }
+                }
+                break;
         }
 
-        System.exit(0);
-        return null;
+        if (alpha != null) {
+            return Math.toRadians(alpha);
+        } else {
+            System.exit(0);
+            return null;
+        }
     }
 
     public static Boolean increaseQPosition(Car car)
@@ -127,7 +169,7 @@ public abstract class Path {
             case 5:
                 return false;
             case 6:
-                break;
+                return true;
         }
 
         System.exit(0);

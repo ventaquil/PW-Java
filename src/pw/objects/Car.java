@@ -110,6 +110,13 @@ public class Car extends Thread {
 				        qPosition++;
 				    }
 
+				    EntryQueue queue = EntryQueue.instance();
+				    if ((queue.getQueueIndex(this) == 0) && (q == 1)) {
+				        queue.pop();
+
+				        q = 6;
+				    }
+
 					wait();
 				} catch (InterruptedException e) { }
 			}
