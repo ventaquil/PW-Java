@@ -3,6 +3,11 @@ package pw;
 import pw.frames.MainFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * @author ventaquil
+ * @package pw
+ * @version 0.1.0-alpha
+ */
 public abstract class PW {
 	public static void main(String[] args)
 	{
@@ -10,14 +15,14 @@ public abstract class PW {
 			@Override
 			public void run()
 			{
-				new MainFrame();
+				MainFrame.instance();
 			}
 		});
 
-		CarsCollection.instance()
-					  .newCar();
-
 		Timeline.instance()
-				.start();
+		        .start();
+
+        EntryQueue.instance()
+                  .newCar();
 	}
 }

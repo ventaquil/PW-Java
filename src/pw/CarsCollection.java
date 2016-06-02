@@ -8,15 +8,28 @@ import java.util.Random;
 
 import pw.objects.Car;
 
+/**
+ * @author ventaquil
+ * @package pw
+ * @version 0.1.0-alpha
+ */
 public class CarsCollection {
 	private List<Car> cars;
 	private static CarsCollection instance;
 
+	/**
+	 * Private class constructor. Creates new List of Car objects.
+	 */
 	private CarsCollection()
 	{
 		cars = new ArrayList<Car>();
 	}
 
+	/**
+	 * Method returns existing instance of CarsCollection. If instance does not exists method creates it.
+	 * 
+	 * @return CarsCollection instance.
+	 */
 	public static CarsCollection instance()
 	{
 		if (instance == null) {
@@ -26,13 +39,19 @@ public class CarsCollection {
 		return instance;
 	}
 
-	public Car newCar()
+	/**
+	 * Method creates new Car object.
+	 * 
+	 * @param position Position in EntryQueue.
+	 * @return Car object.
+	 */
+	public Car newCar(Integer position)
 	{
 		Integer R = new Integer((new Random()).nextInt(226) + 30);
 		Integer G = new Integer((new Random()).nextInt(226) + 30);
 		Integer B = new Integer((new Random()).nextInt(226) + 30);
 
-		Car car = new Car(new Color(R, G, B));
+		Car car = new Car(new Color(R, G, B), position);
 
 		car.start();
 
@@ -41,16 +60,34 @@ public class CarsCollection {
 		return car;
 	}
 
+    /**
+     * Method creates new Car object.
+     * 
+     * @return Car object.
+     */
+	public Car newCar()
+	{
+	    return newCar(0);
+	}
+
+	/**
+	 * Method notifies all cars - it says "wake up boys".
+	 */
 	public void notifyCars()
 	{
 		for (int i = 0, j = cars.size(); i < j; i++) {
-			synchronized(cars.get(i)) {
+			synchronized (cars.get(i)) {
 				cars.get(i)
 					.notify();
 			}
 		}
 	}
 
+	/**
+	 * Method paint all Car objects in CarsCollection.
+	 * 
+	 * @param g Graphics parameter.
+	 */
 	public void paint(Graphics g)
 	{
 		for (int i = 0, j = cars.size(); i < j; i++) {
