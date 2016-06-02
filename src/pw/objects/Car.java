@@ -69,14 +69,26 @@ public class Car extends Thread {
 
     public void goToFirstPosition()
     {
+        if (q == 2) {
+            qPosition -= 36;
+        } else if (q == 4) {
+            qPosition -= 70;
+        } else {
+            qPosition = 0;
+        }
+
         q = 0;
-        qPosition = 0;
     }
 
     public void goToSecondPosition()
     {
+        if (q == 4) {
+            qPosition -= 36;
+        } else {
+            qPosition = 0;
+        }
+
         q = 2;
-        qPosition = 0;
     }
 
     public void goToThirdPosition()
@@ -120,8 +132,7 @@ public class Car extends Thread {
         g2D.rotate(rotation);
 
 		g2D.setColor(color);
-		g2D.fill(new RoundRectangle2D.Double(0, 0, 32, 16, 8, 8)); //122x114
-		//g2D.fill(new RoundRectangle2D.Double(new Integer((new java.util.Random()).nextInt(170) + 30), new Integer((new java.util.Random()).nextInt(170) + 30), 16, 32, 8, 8));
+		g2D.fill(new RoundRectangle2D.Double(0, 0, 32, 16, 8, 8));
 
         g2D.setColor(Color.BLACK);
         g2D.draw(new RoundRectangle2D.Double(0, 0, 32, 16, 8, 8));

@@ -97,7 +97,18 @@ public abstract class Path {
 
     public static Double generateRotation(Car car)
     {
-        return Math.toRadians(90);//(new java.util.Random()).nextInt(90));
+        switch (car.getQ()) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                return Math.toRadians(90);
+        }
+
+        System.exit(0);
+        return null;
     }
 
     public static Boolean increaseQPosition(Car car)

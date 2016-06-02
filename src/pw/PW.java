@@ -28,5 +28,11 @@ public abstract class PW {
                   .newCar();
         EntryQueue.instance()
                   .newCar();
+
+        try {
+            Thread.sleep(2000);
+
+            EntryQueue.instance().pop();
+        } catch (InterruptedException e) { }
 	}
 }
