@@ -75,10 +75,12 @@ public class CarsCollection {
 	 */
 	public void notifyCars()
 	{
+	    Car car;
+
 		for (int i = 0, j = cars.size(); i < j; i++) {
-			synchronized (cars.get(i)) {
-				cars.get(i)
-					.notify();
+		    car = cars.get(i);
+			synchronized (car) {
+			    car.notify();
 			}
 		}
 	}

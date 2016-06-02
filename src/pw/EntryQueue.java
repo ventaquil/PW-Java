@@ -52,7 +52,7 @@ public class EntryQueue {
     public synchronized Car newCar()
     {
         Car car = CarsCollection.instance()
-                                .newCar(queue.size());
+                                .newCar(queue.size() * 2);
 
         put(car);
 

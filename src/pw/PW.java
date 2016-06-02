@@ -24,5 +24,9 @@ public abstract class PW {
 
         EntryQueue.instance()
                   .newCar();
+        EntryQueue.instance()
+                  .newCar();
+        EntryQueue.instance()
+                  .newCar();
 	}
 }

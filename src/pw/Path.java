@@ -14,10 +14,6 @@ public abstract class Path {
             if (position == 68) {
                 car.setFirstPosition();
             }
-        } else if (index == 1) {
-            
-        } else {
-            
         }
 
         return new Point(41, position);
@@ -28,6 +24,54 @@ public abstract class Path {
         return new Point(41, 68);
     }
 
+    private static Point from2State(Car car)
+    {
+        Integer index = EntryQueue.instance()
+                                  .getQueueIndex(car);
+
+        Integer position = car.getQPosition() - 70;
+        
+        if (index == 0) {
+            car.goToFirstPosition();
+        } else if (index == 1) {
+            if (position == 34) {
+                car.setSecondPosition();
+            }
+        }
+        
+        return new Point(41, position);
+    }
+
+    private static Point from3State(Car car)
+    {
+        return new Point(41, 34);
+    }
+
+    private static Point from4State(Car car)
+    {
+        Integer index = EntryQueue.instance()
+                                  .getQueueIndex(car);
+        
+        Integer position = car.getQPosition() - 106;
+        
+        if (index == 0) {
+        car.goToFirstPosition();
+        } else if (index == 1) {
+            car.goToSecondPosition();
+        } else if (index == 2) {
+            if (position == 0) {
+                car.setThirdPosition();
+            }
+        }
+        
+        return new Point(41, position);
+    }
+
+    private static Point from5State(Car car)
+    {
+        return new Point(41, 0);
+    }
+
     public static Point generatePosition(Car car)
     {
         switch (car.getQ()) {
@@ -36,13 +80,13 @@ public abstract class Path {
             case 1:
                 return from1State(car);
             case 2:
-                break;
+                return from2State(car);
             case 3:
-                break;
+                return from3State(car);
             case 4:
-                break;
+                return from4State(car);
             case 5:
-                break;
+                return from5State(car);
             case 6:
                 break;
         }
@@ -62,16 +106,15 @@ public abstract class Path {
             case 0:
                 return true;
             case 1:
-                //return from1State(car);
                 return false;
             case 2:
-                break;
+                return true;
             case 3:
-                break;
+                return false;
             case 4:
-                break;
+                return true;
             case 5:
-                break;
+                return false;
             case 6:
                 break;
         }

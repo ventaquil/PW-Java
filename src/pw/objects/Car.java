@@ -33,7 +33,7 @@ public class Car extends Thread {
 
 		if (position == null) {
 		    position = EntryQueue.instance()
-                                 .getQueueIndex(this);
+                                 .getQueueIndex(this) * 2;
 		}
 
 		q = position;
@@ -67,6 +67,24 @@ public class Car extends Thread {
 	    return qPosition;
 	}
 
+    public void goToFirstPosition()
+    {
+        q = 0;
+        qPosition = 0;
+    }
+
+    public void goToSecondPosition()
+    {
+        q = 2;
+        qPosition = 0;
+    }
+
+    public void goToThirdPosition()
+    {
+        q = 4;
+        qPosition = 0;
+    }
+
 	/**
 	 * Method necessary for multithreading.
 	 */
@@ -81,9 +99,7 @@ public class Car extends Thread {
 				    }
 
 					wait();
-				} catch (InterruptedException e) {
-					
-				}
+				} catch (InterruptedException e) { }
 			}
 		}
 	}
@@ -114,9 +130,21 @@ public class Car extends Thread {
         g2D.translate(-position.getX(), -position.getY());
 	}
 
-	public synchronized void setFirstPosition()
-	{
-	    q = 1;
-	    qPosition = 0;
-	}
+    public synchronized void setFirstPosition()
+    {
+        q = 1;
+        qPosition = 0;
+    }
+
+    public synchronized void setSecondPosition()
+    {
+        q = 3;
+        qPosition = 0;
+    }
+
+    public synchronized void setThirdPosition()
+    {
+        q = 5;
+        qPosition = 0;
+    }
 }
