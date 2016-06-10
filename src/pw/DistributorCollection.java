@@ -90,6 +90,8 @@ public class DistributorCollection {
 
         Color color = new Color(255, 130, 0);
 
+        Distributor distributor;
+
         Semaphore s;
 
         for (int i = 0, j = distributors.size(); i < j; i++) {
@@ -97,8 +99,9 @@ public class DistributorCollection {
                 g2D.setColor(color);
                 g2D.fill(new RoundRectangle2D.Double(222, 65 + (i * 40), 20, 14, 4, 4));
 
-                s = distributors.get(i)
-                                .getSemaphore();
+                distributor = distributors.get(i);
+
+                s = distributor.getSemaphore();
                 if (s.tryAcquire()) {
                     s.release();
                     g2D.setColor(Color.GREEN);
@@ -108,9 +111,13 @@ public class DistributorCollection {
 
                 g2D.fill(new Ellipse2D.Double(222, 65 + (i * 40), 5, 5));
 
+                g2D.setColor(distributor.carOn() ? Color.RED : Color.GREEN);
+                g2D.fill(new Ellipse2D.Double(229, 65 + (i * 40), 5, 5));
+
                 g2D.setColor(Color.BLACK);
                 g2D.draw(new RoundRectangle2D.Double(222, 65 + (i * 40), 20, 14, 4, 4));
                 g2D.draw(new Ellipse2D.Double(222, 65 + (i * 40), 5, 5));
+                g2D.draw(new Ellipse2D.Double(229, 65 + (i * 40), 5, 5));
             } catch (IndexOutOfBoundsException e) { }
         }
     }

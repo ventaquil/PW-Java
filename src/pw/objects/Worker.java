@@ -15,6 +15,7 @@ public class Worker extends Thread {
     private Integer number;
     private Integer q;
     private Integer qPosition;
+    private Integer wait;
 
     public static Worker addNew()
     {
@@ -41,9 +42,15 @@ public class Worker extends Thread {
         return qPosition;
     }
 
+    public void goBack()
+    {
+        q += 3;
+        qPosition = 0;
+    }
+
     public void goTo(Distributor distributor)
     {
-        q = distributor.getNumber() + 1;
+        q = distributor.getNumber();
         qPosition = 0;
     }
 
@@ -67,25 +74,54 @@ public class Worker extends Thread {
     public void run()
     {
         while (true) {
-            synchronized (this) {
-                try {
+            try {
+                switch (q) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        if (wait >  0) {
+                            sleep(wait * 1000);
+                            wait = 0;
+                    
+                            DistributorCollection.instance()
+                                                 .get(q - 1)
+                                                 .freeCar();
+                    
+                            goBack();
+                        }
+                        break;
+                }
+
+                synchronized (this) {
                     if (Path.increaseQPosition(this)) {
                         qPosition++;
                     }
 
                     switch (q) {
-                        case 1:
+                        case 0:
                             Distributor d = DistributorCollection.instance()
                                                                  .lockFirstFree();
                             if (d != null) {
                                 goTo(d);
                             }
+                            break;
                     }
 
                     wait();
-                } catch (InterruptedException e) { }
-            }
+                }
+            } catch (InterruptedException e) { }
         }
+    }
+
+    public synchronized void toStartPosition()
+    {
+        q = 0;
+        qPosition = 0;
+    }
+
+    public synchronized void waitMoment()
+    {
+        wait = (new Random()).nextInt(45) + 15;
     }
 
     private Worker(Color color)
@@ -98,8 +134,10 @@ public class Worker extends Thread {
 
         number = workersCollection.getWorkersCount() + 1;
 
-        q = 1;
+        q = 0;
         qPosition = 0;
+
+        wait = 0;
 
         workersCollection.add(this);
     }

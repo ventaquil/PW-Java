@@ -179,8 +179,8 @@ public class Car extends Thread {
 	public void run()
 	{
 		while (true) {
-			synchronized(this) {
-				try {
+            try {
+                synchronized(this) {
 				    if (Path.increaseQPosition(this)) {
 				        qPosition++;
 				    }
@@ -231,8 +231,8 @@ public class Car extends Thread {
 				    }
 
 					wait();
-				} catch (InterruptedException e) { }
-			}
+                }
+            } catch (InterruptedException e) { }
 		}
 	}
 

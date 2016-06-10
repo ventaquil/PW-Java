@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Distributor {
+    private Boolean canGo;
     private Boolean carOn;
     private Integer number;
     private Semaphore s;
@@ -34,6 +35,11 @@ public class Distributor {
         return carOn;
     }
 
+    public synchronized Boolean canGo()
+    {
+        return canGo;
+    }
+
     public synchronized Boolean carOn()
     {
         return carOn;
@@ -41,6 +47,8 @@ public class Distributor {
 
     private Distributor() {
         DistributorCollection distributorCollection = DistributorCollection.instance();
+
+        canGo = false;
 
         carOn = false;
 
@@ -56,6 +64,11 @@ public class Distributor {
     public synchronized void free()
     {
         carOn = false;
+    }
+
+    public synchronized void freeCar()
+    {
+        canGo = true;
     }
 
     public Integer getNumber()
