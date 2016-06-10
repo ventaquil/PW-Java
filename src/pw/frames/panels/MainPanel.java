@@ -1,8 +1,8 @@
 package pw.frames.panels;
 
 import pw.CarsCollection;
+import pw.DistributorCollection;
 import pw.WorkersCollection;
-import pw.objects.Distributor;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -84,6 +84,7 @@ public class MainPanel extends JPanel {
                          .paint(g);
 
         // Draw distributors
-        Distributor.paint(g);
+        DistributorCollection.instance()
+                             .paint(g);
 	}
 }

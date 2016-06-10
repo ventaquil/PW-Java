@@ -1,10 +1,10 @@
 package pw.objects;
 
+import pw.DistributorCollection;
 import pw.EntryQueue;
 import pw.Path;
 import pw.Point;
 import pw.semaphores.BuildingSemaphore;
-
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.Graphics;
@@ -180,7 +180,8 @@ public class Car extends Thread {
 		                    switch (q) {
 		                        case 1:
 		                            if (distributor == null) {
-		                                distributor = Distributor.acquireFirstFree();
+		                                distributor = DistributorCollection.instance()
+		                                                                   .acquireFirstFree();
 		                            }
 
 		                            if (distributor != null) {

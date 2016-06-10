@@ -24,9 +24,9 @@ public abstract class PW {
 
 		BuildingSemaphore.instance();
 
-        new Distributor();
-        new Distributor();
-        new Distributor();
+        Distributor.addNew();
+        Distributor.addNew();
+        Distributor.addNew();
 
         Worker.addNew();
         Worker.addNew();
