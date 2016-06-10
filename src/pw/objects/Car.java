@@ -107,6 +107,10 @@ public class Car extends Thread {
 
         BuildingSemaphore.instance()
                          .release();
+
+        DistributorCollection.instance()
+                             .get(1 - 1)
+                             .capture(this);
     }
 
     public void goToSecondDistributor()
@@ -122,6 +126,10 @@ public class Car extends Thread {
 
         BuildingSemaphore.instance()
                          .release();
+
+        DistributorCollection.instance()
+                             .get(2 - 1)
+                             .capture(this);
     }
 
     public void goToThirdDistributor()
@@ -137,6 +145,10 @@ public class Car extends Thread {
 
         BuildingSemaphore.instance()
                          .release();
+
+        DistributorCollection.instance()
+                             .get(3 - 1)
+                             .capture(this);
     }
 
     /**

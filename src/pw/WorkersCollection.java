@@ -13,6 +13,8 @@ public class WorkersCollection {
     public void add(Worker worker)
     {
         workers.add(worker);
+
+        worker.start();
     }
 
     public Integer getWorkersCount()

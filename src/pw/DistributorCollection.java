@@ -16,12 +16,15 @@ public class DistributorCollection {
 
     public Distributor acquireFirstFree()
     {
+        Distributor distributor;
+
         for (int i = 0, j = distributors.size(); i < j; i++) {
             try {
-                if (distributors.get(i)
-                                .getSemaphore()
-                                .tryAcquire()) {
-                    return distributors.get(i);
+                distributor = distributors.get(i);
+
+                if (distributor.getSemaphore()
+                               .tryAcquire()) {
+                    return distributor;
                 }
             } catch (IndexOutOfBoundsException e) { }
         }
@@ -60,6 +63,25 @@ public class DistributorCollection {
         }
 
         return instance;
+    }
+
+    public Distributor lockFirstFree()
+    {
+        Distributor distributor;
+
+        for (int i = 0, j = distributors.size(); i < j; i++) {
+            try {
+                distributor = distributors.get(i);
+
+                if (distributor.carOn()) {
+                    if (distributor.workerTryLock()) {
+                        return distributor;
+                    }
+                }
+            } catch (IndexOutOfBoundsException e) { }
+        }
+
+        return null;
     }
 
     public void paint(Graphics g)

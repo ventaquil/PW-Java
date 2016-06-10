@@ -207,22 +207,170 @@ public abstract class Path {
 
     public static Point from0State(Worker worker)
     {
-        return new Point(164, 203);
+        return new Point(10, 10);
     }
 
     public static Point from1State(Worker worker)
     {
-        return new Point(176, 203);
+        switch (worker.getNumber()) {
+            case 1:
+                return new Point(164, 203);
+            case 2:
+                return new Point(176, 203);
+            case 3:
+                return new Point(188, 203);
+            case 4:
+                return new Point(200, 203);
+        }
+
+        System.exit(-1);
+        return null;
     }
 
     public static Point from2State(Worker worker)
     {
-        return new Point(188, 203);
+        Integer x = 0;
+        Integer y = 0;
+        Integer modifier = 0;
+
+        Integer position = worker.getQPosition();
+
+        switch (worker.getNumber()) {
+            case 1:
+                x = 164;
+                y = 203;
+                modifier = 0;
+                break;
+            case 2:
+                x = 176;
+                y = 203;
+                modifier = 12;
+                break;
+            case 3:
+                x = 188;
+                y = 203;
+                modifier = 24;
+                break;
+            case 4:
+                x = 200;
+                y = 203;
+                modifier = 36;
+                break;
+        }
+
+        if (position < 16) {
+            y -= position;
+        } else if (position < 96 - modifier) {
+            x += position - 16;
+            y = 187;
+        } else if (position < 216 - modifier) {
+            y -= position - (96 - 16 - modifier);
+            x += 96 - 16 - modifier;
+        } else {
+            y -= 216 - modifier - (96 - 16 - modifier);
+            x += 96 - 16 - modifier;
+        }
+
+        return new Point(x, y);
     }
 
     public static Point from3State(Worker worker)
     {
-        return new Point(200, 203);
+        Integer x = 0;
+        Integer y = 0;
+        Integer modifier = 0;
+
+        Integer position = worker.getQPosition();
+
+        switch (worker.getNumber()) {
+            case 1:
+                x = 164;
+                y = 203;
+                modifier = 0;
+                break;
+            case 2:
+                x = 176;
+                y = 203;
+                modifier = 12;
+                break;
+            case 3:
+                x = 188;
+                y = 203;
+                modifier = 24;
+                break;
+            case 4:
+                x = 200;
+                y = 203;
+                modifier = 36;
+                break;
+        }
+
+        if (position < 16) {
+            y -= position;
+        } else if (position < 96 - modifier) {
+            x += position - 16;
+            y = 187;
+        } else if (position < 176 - modifier) {
+            y -= position - (96 - 16 - modifier);
+            x += 96 - 16 - modifier;
+        } else {
+            y -= 176 - modifier - (96 - 16 - modifier);
+            x += 96 - 16 - modifier;
+        }
+
+        return new Point(x, y);
+    }
+
+    public static Point from4State(Worker worker)
+    {
+        Integer x = 0;
+        Integer y = 0;
+        Integer modifier = 0;
+
+        Integer position = worker.getQPosition();
+
+        switch (worker.getNumber()) {
+            case 1:
+                x = 164;
+                y = 203;
+                modifier = 0;
+                break;
+            case 2:
+                x = 176;
+                y = 203;
+                modifier = 12;
+                break;
+            case 3:
+                x = 188;
+                y = 203;
+                modifier = 24;
+                break;
+            case 4:
+                x = 200;
+                y = 203;
+                modifier = 36;
+                break;
+        }
+
+        if (position < 16) {
+            y -= position;
+        } else if (position < 96 - modifier) {
+            x += position - 16;
+            y = 187;
+        } else if (position < 136 - modifier) {
+            y -= position - (96 - 16 - modifier);
+            x += 96 - 16 - modifier;
+        } else {
+            y -= 136 - modifier - (96 - 16 - modifier);
+            x += 96 - 16 - modifier;
+        }
+
+        return new Point(x, y);
+    }
+
+    public static Point from5State(Worker worker)
+    {
+        return new Point(0, 0);
     }
 
     public static Point generatePosition(Worker worker)
@@ -236,6 +384,10 @@ public abstract class Path {
                 return from2State(worker);
             case 3:
                 return from3State(worker);
+            case 4:
+                return from4State(worker);
+            case 5:
+                return from5State(worker);
         }
 
         System.exit(0);
@@ -269,10 +421,12 @@ public abstract class Path {
     {
         switch (worker.getQ()) {
             case 0:
-            case 1:
             case 2:
             case 3:
+            case 4:
                 return true;
+            case 1:
+                return false;
         }
 
         System.exit(0);

@@ -1,5 +1,6 @@
 package pw.objects;
 
+import pw.DistributorCollection;
 import pw.Path;
 import pw.Point;
 import pw.WorkersCollection;
@@ -11,6 +12,7 @@ import java.util.Random;
 
 public class Worker extends Thread {
     private Color color;
+    private Integer number;
     private Integer q;
     private Integer qPosition;
 
@@ -24,6 +26,11 @@ public class Worker extends Thread {
         return null;
     }
 
+    public Integer getNumber()
+    {
+        return number;
+    }
+
     public Integer getQ()
     {
         return q;
@@ -32,6 +39,12 @@ public class Worker extends Thread {
     public Integer getQPosition()
     {
         return qPosition;
+    }
+
+    public void goTo(Distributor distributor)
+    {
+        q = distributor.getNumber() + 1;
+        qPosition = 0;
     }
 
     public void paint(Graphics g)
@@ -60,6 +73,15 @@ public class Worker extends Thread {
                         qPosition++;
                     }
 
+                    switch (q) {
+                        case 1:
+                            Distributor d = DistributorCollection.instance()
+                                                                 .lockFirstFree();
+                            if (d != null) {
+                                goTo(d);
+                            }
+                    }
+
                     wait();
                 } catch (InterruptedException e) { }
             }
@@ -74,7 +96,9 @@ public class Worker extends Thread {
 
         this.color = color;
 
-        q = workersCollection.getWorkersCount();
+        number = workersCollection.getWorkersCount() + 1;
+
+        q = 1;
         qPosition = 0;
 
         workersCollection.add(this);
