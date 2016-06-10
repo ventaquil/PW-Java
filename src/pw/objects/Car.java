@@ -3,6 +3,8 @@ package pw.objects;
 import pw.EntryQueue;
 import pw.Path;
 import pw.Point;
+import pw.semaphores.BuildingSemaphore;
+
 import java.awt.Color;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.Graphics;
@@ -69,12 +71,12 @@ public class Car extends Thread {
 
     public void goToFirstPosition()
     {
-        if (q == 2) {
-            qPosition -= 36;
-        } else if (q == 4) {
-            qPosition -= 70;
-        } else {
+        if (q == null) {
             qPosition = 0;
+        } else if (q == 3) {
+            qPosition = 82;
+        } else if (q == 5) {
+            qPosition = 62;
         }
 
         q = 0;
@@ -82,10 +84,10 @@ public class Car extends Thread {
 
     public void goToSecondPosition()
     {
-        if (q == 4) {
-            qPosition -= 36;
-        } else {
+        if (q == null) {
             qPosition = 0;
+        } else if (q == 5) {
+            qPosition = 62;
         }
 
         q = 2;
@@ -94,6 +96,12 @@ public class Car extends Thread {
     public void goToThirdPosition()
     {
         q = 4;
+        qPosition = 0;
+    }
+
+    public void goToFirstDistributor()
+    {
+        q = 6;
         qPosition = 0;
     }
 
@@ -111,10 +119,31 @@ public class Car extends Thread {
 				    }
 
 				    EntryQueue queue = EntryQueue.instance();
-				    if ((queue.getQueueIndex(this) == 0) && (q == 1)) {
-				        queue.pop();
-
-				        q = 6;
+				    Integer index = queue.getQueueIndex(this);
+				    switch (index) {
+				        case 0:
+		                    switch (q) {
+		                        case 1:
+		                            if (BuildingSemaphore.instance()
+		                                                 .tryAcquire()) {
+        		                        queue.pop();
+        
+        		                        goToFirstDistributor();
+		                            }
+    		                        break;
+		                        case 3:
+                                case 5:
+                                    goToFirstPosition();
+                                    break;
+		                    }
+                            break;
+				        case 1:
+				            switch (q) {
+				                case 5:
+			                        goToSecondPosition();
+                                    break;
+				            }
+				            break;
 				    }
 
 					wait();
@@ -133,19 +162,15 @@ public class Car extends Thread {
 		Graphics2D g2D = (Graphics2D) g;
 
 		Point position = Path.generatePosition(this);
-		Double rotation = Path.generateRotation(this);
 
-		g2D.translate(position.getX(), position.getY());
-        g2D.rotate(rotation);
+		Integer x = position.getX();
+		Integer y = position.getY();
 
 		g2D.setColor(color);
-		g2D.fill(new RoundRectangle2D.Double(0, 0, 32, 16, 8, 8));
+		g2D.fill(new RoundRectangle2D.Double(x, y, 16, 16, 8, 8));
 
         g2D.setColor(Color.BLACK);
-        g2D.draw(new RoundRectangle2D.Double(0, 0, 32, 16, 8, 8));
-
-        g2D.rotate(-rotation);
-        g2D.translate(-position.getX(), -position.getY());
+        g2D.draw(new RoundRectangle2D.Double(x, y, 16, 16, 8, 8));
 	}
 
     public synchronized void setFirstPosition()

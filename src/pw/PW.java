@@ -1,6 +1,7 @@
 package pw;
 
 import pw.frames.MainFrame;
+import pw.semaphores.BuildingSemaphore;
 import javax.swing.SwingUtilities;
 
 /**
@@ -19,14 +20,22 @@ public abstract class PW {
 			}
 		});
 
+		BuildingSemaphore.instance();
+
 		Timeline.instance()
 		        .start();
 
         EntryQueue.instance()
                   .newCar();
+
+        Timeline.instance()
+                .waitCycle(3);
         EntryQueue.instance()
                   .newCar();
-//        EntryQueue.instance()
-//                  .newCar();
+
+        Timeline.instance()
+                .waitCycle(30);
+        EntryQueue.instance()
+                  .newCar();
 	}
 }

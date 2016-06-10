@@ -86,4 +86,9 @@ public class EntryQueue {
     {
         queue.add(car);
     }
+
+    public synchronized Integer size()
+    {
+        return queue.size();
+    }
 }

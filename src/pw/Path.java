@@ -8,20 +8,20 @@ public abstract class Path {
         Integer index = EntryQueue.instance()
                                   .getQueueIndex(car);
 
-        Integer position = car.getQPosition() - 34;
+        Integer position = car.getQPosition() - 20;
 
         if (index == 0) {
-            if (position == 68) {
+            if (position == 82) {
                 car.setFirstPosition();
             }
         }
 
-        return new Point(41, position);
+        return new Point(25, position);
     }
 
     private static Point from1State(Car car)
     {
-        return new Point(41, 68);
+        return new Point(25, 82);
     }
 
     private static Point from2State(Car car)
@@ -29,22 +29,22 @@ public abstract class Path {
         Integer index = EntryQueue.instance()
                                   .getQueueIndex(car);
 
-        Integer position = car.getQPosition() - 70;
+        Integer position = car.getQPosition() - 20;
         
         if (index == 0) {
             car.goToFirstPosition();
         } else if (index == 1) {
-            if (position == 34) {
+            if (position == 62) {
                 car.setSecondPosition();
             }
         }
         
-        return new Point(41, position);
+        return new Point(25, position);
     }
 
     private static Point from3State(Car car)
     {
-        return new Point(41, 34);
+        return new Point(25, 62);
     }
 
     private static Point from4State(Car car)
@@ -52,43 +52,38 @@ public abstract class Path {
         Integer index = EntryQueue.instance()
                                   .getQueueIndex(car);
         
-        Integer position = car.getQPosition() - 106;
+        Integer position = car.getQPosition() - 20;
         
         if (index == 0) {
             car.goToFirstPosition();
         } else if (index == 1) {
             car.goToSecondPosition();
         } else if (index == 2) {
-            if (position == 0) {
+            if (position == 42) {
                 car.setThirdPosition();
             }
         }
         
-        return new Point(41, position);
+        return new Point(25, position);
     }
 
     private static Point from5State(Car car)
     {
-        return new Point(41, 0);
+        return new Point(25, 42);
     }
 
     private static Point from6State(Car car)
     {
-        Integer x = 41;
-        Integer y = 68;
+        Integer x = 25;
+        Integer y = 82;
 
         Integer position = car.getQPosition();
 
-        if (position > 25) {
-            x += position - 25;
-
-            if (position < 46) {
-                y += position;
-            } else {
-                y += 46;
-            }
+        if (position < 32) {
+            y += position + 1;
         } else {
-            y += position;
+            y = 114;
+            x += position - 32 + 1;
         }
 
         return new Point(x, y);
@@ -117,59 +112,18 @@ public abstract class Path {
         return null;
     }
 
-    public static Double generateRotation(Car car)
-    {
-        Integer alpha = null;
-
-        switch (car.getQ()) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                alpha = 90;
-                break;
-            case 6:
-                Integer position = car.getQPosition();
-
-                if (position < 18) {
-                    alpha = 90;
-                } else {
-                    if (position < 46) {
-                        alpha = (new Double((-45.0 / 14.0) * position + (1035.0 / 7.0))).intValue();
-                    } else {
-                        alpha = 0;
-                    }
-                }
-                break;
-        }
-
-        if (alpha != null) {
-            return Math.toRadians(alpha);
-        } else {
-            System.exit(0);
-            return null;
-        }
-    }
-
     public static Boolean increaseQPosition(Car car)
     {
         switch (car.getQ()) {
             case 0:
-                return true;
-            case 1:
-                return false;
             case 2:
-                return true;
-            case 3:
-                return false;
             case 4:
-                return true;
-            case 5:
-                return false;
             case 6:
                 return true;
+            case 1:
+            case 3:
+            case 5:
+                return false;
         }
 
         System.exit(0);

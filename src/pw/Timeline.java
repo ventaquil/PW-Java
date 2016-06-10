@@ -47,6 +47,10 @@ public class Timeline extends Thread {
 						} catch (NullPointerException e) { }
 					}
 				}).start();
+
+				synchronized (this) {
+				    notify();
+				}
 			} catch (InterruptedException e) { }
 		}
 	}
@@ -55,4 +59,17 @@ public class Timeline extends Thread {
 	 * Private class constructor.
 	 */
 	private Timeline() { }
+
+	public void waitCycle(Integer cycles)
+	{
+	    do {
+	        try {
+        	    synchronized (this) {
+        	        wait();
+        
+        	        cycles--;
+        	    }
+	        } catch (InterruptedException e) { }
+	    } while (cycles > 0);
+	}
 }
