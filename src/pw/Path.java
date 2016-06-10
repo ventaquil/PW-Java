@@ -264,11 +264,11 @@ public abstract class Path {
             x += position - 16;
             y = 187;
         } else if (position < 216 - modifier) {
-            y -= position - (96 - 16 - modifier);
-            x += 96 - 16 - modifier;
+            y -= position - 80 + modifier;
+            x += 80 - modifier;
         } else {
-            y -= 216 - modifier - (96 - 16 - modifier);
-            x += 96 - 16 - modifier;
+            y -= 136;
+            x += 80 - modifier;
         }
 
         return new Point(x, y);
@@ -311,11 +311,11 @@ public abstract class Path {
             x += position - 16;
             y = 187;
         } else if (position < 176 - modifier) {
-            y -= position - (96 - 16 - modifier);
-            x += 96 - 16 - modifier;
+            y -= position - 80 + modifier;
+            x += 80 - modifier;
         } else {
-            y -= 176 - modifier - (96 - 16 - modifier);
-            x += 96 - 16 - modifier;
+            y -= 96;
+            x += 80 - modifier;
         }
 
         return new Point(x, y);
@@ -358,11 +358,11 @@ public abstract class Path {
             x += position - 16;
             y = 187;
         } else if (position < 136 - modifier) {
-            y -= position - (96 - 16 - modifier);
-            x += 96 - 16 - modifier;
+            y -= position - 80 + modifier;
+            x += 80 - modifier;
         } else {
-            y -= 136 - modifier - (96 - 16 - modifier);
-            x += 96 - 16 - modifier;
+            y -= 56;
+            x += 80 - modifier;
         }
 
         return new Point(x, y);
