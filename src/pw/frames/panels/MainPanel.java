@@ -1,6 +1,7 @@
 package pw.frames.panels;
 
 import pw.CarsCollection;
+import pw.objects.Distributor;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -56,6 +57,7 @@ public class MainPanel extends JPanel {
         g2D.fill(new RoundRectangle2D.Double(20, 104, 100, 90, 8, 8));
         g2D.fill(new Rectangle2D.Double(0, 170, 20, 18));
         g2D.fill(new Rectangle2D.Double(120, 110, 36, 25));
+        g2D.fill(new RoundRectangle2D.Double(156, 60, 90, 130, 8, 8));
 
         g2D.setColor(new Color(160, 160, 160));
         g2D.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{2}, 0));
@@ -68,5 +70,8 @@ public class MainPanel extends JPanel {
         g2D.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
         CarsCollection.instance()
         		      .paint(g);
+
+        // Draw distributors
+        Distributor.paint(g);
 	}
 }

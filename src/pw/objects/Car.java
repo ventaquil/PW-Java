@@ -17,6 +17,7 @@ import java.awt.Graphics2D;
  */
 public class Car extends Thread {
 	private Color color;
+    private Distributor distributor;
 	private Integer q;
 	private Integer qPosition;
 	private Integer modifier;
@@ -32,6 +33,8 @@ public class Car extends Thread {
 		super();
 
 		this.color = color;
+
+		distributor = null;
 
 		if (position == null) {
 		    position = EntryQueue.instance()
@@ -105,6 +108,45 @@ public class Car extends Thread {
         qPosition = 0;
     }
 
+    public void onFirstDistributor()
+    {
+        q = 7;
+        qPosition = 0;
+
+        BuildingSemaphore.instance()
+                         .release();
+    }
+
+    public void goToSecondDistributor()
+    {
+        q = 8;
+        qPosition = 0;
+    }
+
+    public void onSecondDistributor()
+    {
+        q = 9;
+        qPosition = 0;
+
+        BuildingSemaphore.instance()
+                         .release();
+    }
+
+    public void goToThirdDistributor()
+    {
+        q = 10;
+        qPosition = 0;
+    }
+
+    public void onThirdDistributor()
+    {
+        q = 11;
+        qPosition = 0;
+
+        BuildingSemaphore.instance()
+                         .release();
+    }
+
 	/**
 	 * Method necessary for multithreading.
 	 */
@@ -124,11 +166,27 @@ public class Car extends Thread {
 				        case 0:
 		                    switch (q) {
 		                        case 1:
-		                            if (BuildingSemaphore.instance()
-		                                                 .tryAcquire()) {
-        		                        queue.pop();
-        
-        		                        goToFirstDistributor();
+		                            if (distributor == null) {
+		                                distributor = Distributor.acquireFirstFree();
+		                            }
+
+		                            if (distributor != null) {
+    		                            if (BuildingSemaphore.instance()
+    		                                                 .tryAcquire()) {
+            		                        queue.pop();
+            
+            		                        switch (distributor.getNumber()) {
+            		                            case 1:
+                                                    goToFirstDistributor();
+            		                                break;
+            		                            case 2:
+                                                    goToSecondDistributor();
+            		                                break;
+            		                            case 3:
+                                                    goToThirdDistributor();
+            		                                break;
+            		                        }
+    		                            }
 		                            }
     		                        break;
 		                        case 3:
