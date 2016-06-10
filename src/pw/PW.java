@@ -29,7 +29,7 @@ public abstract class PW {
                   .newCar();
 
         Timeline.instance()
-                .waitCycle(3);
+                .waitCycle(30);
         EntryQueue.instance()
                   .newCar();
 
