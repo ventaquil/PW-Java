@@ -30,7 +30,7 @@ public class CarsCollection {
 	 * 
 	 * @return CarsCollection instance.
 	 */
-	public static CarsCollection instance()
+	public synchronized static CarsCollection instance()
 	{
 		if (instance == null) {
 			instance = new CarsCollection();
@@ -78,10 +78,12 @@ public class CarsCollection {
 	    Car car;
 
 		for (int i = 0, j = cars.size(); i < j; i++) {
-		    car = cars.get(i);
-			synchronized (car) {
-			    car.notify();
-			}
+		    try {
+    		    car = cars.get(i);
+    			synchronized (car) {
+    			    car.notify();
+    			}
+		    } catch (IndexOutOfBoundsException e) { }
 		}
 	}
 

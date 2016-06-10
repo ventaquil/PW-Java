@@ -2,6 +2,7 @@ package pw;
 
 import pw.frames.MainFrame;
 import pw.objects.Distributor;
+import pw.objects.Worker;
 import pw.semaphores.BuildingSemaphore;
 import javax.swing.SwingUtilities;
 
@@ -26,6 +27,11 @@ public abstract class PW {
         new Distributor();
         new Distributor();
         new Distributor();
+
+        Worker.addNew();
+        Worker.addNew();
+        Worker.addNew();
+        Worker.addNew();
 
 		Timeline.instance()
 		        .start();

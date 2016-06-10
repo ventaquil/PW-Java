@@ -1,6 +1,7 @@
 package pw;
 
 import pw.objects.Car;
+import pw.objects.Worker;
 
 public abstract class Path {
     private static Point from0State(Car car)
@@ -84,12 +85,12 @@ public abstract class Path {
         } else if (position < 170) {
             y = 114;
             x += position - 32 + 1;
-        } else if (position < 204) {
+        } else if (position < 203) {
             y = 114 - (position - 170 + 1);
             x = 164;
-        } else if (position < 263) {
+        } else if (position < 262) {
             y = 81;
-            x = 164 + (position - 204 + 1);
+            x = 164 + (position - 203 + 1);
         } else {
             y = 81;
             x = 224;
@@ -204,6 +205,43 @@ public abstract class Path {
         return null;
     }
 
+    public static Point from0State(Worker worker)
+    {
+        return new Point(164, 203);
+    }
+
+    public static Point from1State(Worker worker)
+    {
+        return new Point(176, 203);
+    }
+
+    public static Point from2State(Worker worker)
+    {
+        return new Point(188, 203);
+    }
+
+    public static Point from3State(Worker worker)
+    {
+        return new Point(200, 203);
+    }
+
+    public static Point generatePosition(Worker worker)
+    {
+        switch (worker.getQ()) {
+            case 0:
+                return from0State(worker);
+            case 1:
+                return from1State(worker);
+            case 2:
+                return from2State(worker);
+            case 3:
+                return from3State(worker);
+        }
+
+        System.exit(0);
+        return null;
+    }
+
     public static Boolean increaseQPosition(Car car)
     {
         switch (car.getQ()) {
@@ -227,8 +265,17 @@ public abstract class Path {
         return null;
     }
 
-    public static Integer generateQ(Car car)
+    public static Boolean increaseQPosition(Worker worker)
     {
-        return 0;
+        switch (worker.getQ()) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                return true;
+        }
+
+        System.exit(0);
+        return null;
     }
 }

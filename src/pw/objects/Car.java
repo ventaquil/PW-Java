@@ -20,7 +20,6 @@ public class Car extends Thread {
     private Distributor distributor;
 	private Integer q;
 	private Integer qPosition;
-	private Integer modifier;
 
 	/**
 	 * Car class constructor. Defines default car color.
@@ -43,8 +42,6 @@ public class Car extends Thread {
 
 		q = position;
 		qPosition = 0;
-
-		modifier = null;
 	}
 
     /**
@@ -56,11 +53,6 @@ public class Car extends Thread {
     {
         this(color, 0);
     }
-
-	public Integer getModifier()
-	{
-	    return modifier;
-	}
 
 	public Integer getQ()
 	{
@@ -147,6 +139,27 @@ public class Car extends Thread {
                          .release();
     }
 
+    /**
+     * Method paints Car.
+     * 
+     * @param g Graphics object.
+     */
+    public void paint(Graphics g)
+    {
+        Graphics2D g2D = (Graphics2D) g;
+
+        Point position = Path.generatePosition(this);
+
+        Integer x = position.getX();
+        Integer y = position.getY();
+
+        g2D.setColor(color);
+        g2D.fill(new RoundRectangle2D.Double(x, y, 16, 16, 8, 8));
+
+        g2D.setColor(Color.BLACK);
+        g2D.draw(new RoundRectangle2D.Double(x, y, 16, 16, 8, 8));
+    }
+
 	/**
 	 * Method necessary for multithreading.
 	 */
@@ -208,27 +221,6 @@ public class Car extends Thread {
 				} catch (InterruptedException e) { }
 			}
 		}
-	}
-
-	/**
-	 * Method paints Car.
-	 * 
-	 * @param g Graphics object.
-	 */
-	public void paint(Graphics g)
-	{
-		Graphics2D g2D = (Graphics2D) g;
-
-		Point position = Path.generatePosition(this);
-
-		Integer x = position.getX();
-		Integer y = position.getY();
-
-		g2D.setColor(color);
-		g2D.fill(new RoundRectangle2D.Double(x, y, 16, 16, 8, 8));
-
-        g2D.setColor(Color.BLACK);
-        g2D.draw(new RoundRectangle2D.Double(x, y, 16, 16, 8, 8));
 	}
 
     public synchronized void setFirstPosition()

@@ -42,6 +42,9 @@ public class Timeline extends Thread {
 						CarsCollection.instance()
 						  			  .notifyCars();
 
+						WorkersCollection.instance()
+						                 .notifyWorkers();
+
 						try {
 						    SwingUtilities.updateComponentTreeUI(MainFrame.instance());
 						} catch (NullPointerException e) { }

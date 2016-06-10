@@ -1,6 +1,7 @@
 package pw.frames.panels;
 
 import pw.CarsCollection;
+import pw.WorkersCollection;
 import pw.objects.Distributor;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -59,6 +60,11 @@ public class MainPanel extends JPanel {
         g2D.fill(new Rectangle2D.Double(120, 110, 36, 25));
         g2D.fill(new RoundRectangle2D.Double(156, 60, 90, 130, 8, 8));
 
+        g2D.setColor(new Color(205, 174, 136));
+        g2D.fill(new RoundRectangle2D.Double(160, 199, 54, 18, 8, 8));
+        g2D.setColor(new Color(193, 154, 107));
+        g2D.draw(new RoundRectangle2D.Double(160, 199, 54, 18, 8, 8));
+
         g2D.setColor(new Color(160, 160, 160));
         g2D.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{2}, 0));
         g2D.draw(new Line2D.Float(25, 101, 42, 101));
@@ -66,10 +72,16 @@ public class MainPanel extends JPanel {
         g2D.setStroke(new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0));
         g2D.draw(new RoundRectangle2D.Double(122, 112, 32, 21, 4, 4));
 
-        // Draw cars
+        // Stroke to default
         g2D.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
+
+        // Draw cars
         CarsCollection.instance()
         		      .paint(g);
+
+        // Draw workers
+        WorkersCollection.instance()
+                         .paint(g);
 
         // Draw distributors
         Distributor.paint(g);
