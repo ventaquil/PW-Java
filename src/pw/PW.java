@@ -42,5 +42,10 @@ public abstract class PW {
                 .waitCycle(30);
         EntryQueue.instance()
                   .newCar();
+
+        Timeline.instance()
+                .waitCycle(50);
+        EntryQueue.instance()
+                  .newCar();
 	}
 }

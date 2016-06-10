@@ -48,7 +48,7 @@ public class MainPanel extends JPanel {
         g2D.clearRect(0, 0, getWidth(), getHeight());
 
         // Fill background
-        g2D.setColor(Color.BLACK);
+        g2D.setColor(new Color(26, 141, 0));
         g2D.fillRect(0, 0, getWidth(), getHeight());
 
         // Draw scene
