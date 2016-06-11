@@ -3,6 +3,7 @@ package pw.objects;
 import pw.DistributorCollection;
 import pw.Path;
 import pw.Point;
+import pw.Timeline;
 import pw.WorkersCollection;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -82,11 +83,16 @@ public class Worker extends Thread {
                         if (wait >  0) {
                             sleep(wait * 1000);
                             wait = 0;
-                    
-                            DistributorCollection.instance()
-                                                 .get(q - 1)
-                                                 .freeCar();
-                    
+
+                            Distributor distributor = DistributorCollection.instance()
+                                                                           .get(q - 1);
+
+                            distributor.freeCar();
+
+                            Timeline.instance()
+                                    .waitCycle(2);
+                            distributor.workerUnlock();
+
                             goBack();
                         }
                         break;
@@ -121,7 +127,7 @@ public class Worker extends Thread {
 
     public synchronized void waitMoment()
     {
-        wait = (new Random()).nextInt(45) + 15;
+        wait = (new Random()).nextInt(4) + 1;//45) + 15;
     }
 
     private Worker(Color color)

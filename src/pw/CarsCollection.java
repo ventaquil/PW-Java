@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import pw.objects.Car;
+import pw.semaphores.BuildingSemaphore;
 
 /**
  * @author ventaquil
@@ -95,8 +96,17 @@ public class CarsCollection {
 	public void paint(Graphics g)
 	{
 		for (int i = 0, j = cars.size(); i < j; i++) {
-			cars.get(i)
-				.paint(g);
+            try {
+    			cars.get(i)
+    				.paint(g);
+            } catch (IndexOutOfBoundsException e) { }
 		}
+	}
+
+	public void remove(Car car)
+	{
+	    cars.remove(car);
+	    BuildingSemaphore.instance()
+	                     .release();
 	}
 }

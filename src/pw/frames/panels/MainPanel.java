@@ -56,7 +56,7 @@ public class MainPanel extends JPanel {
         g2D.setColor(new Color(250, 250, 250));
         g2D.fill(new Rectangle2D.Double(24, 0, 19, 104));
         g2D.fill(new RoundRectangle2D.Double(20, 104, 100, 90, 8, 8));
-        g2D.fill(new Rectangle2D.Double(0, 170, 20, 18));
+        g2D.fill(new Rectangle2D.Double(0, 170, 20, 19));
         g2D.fill(new Rectangle2D.Double(120, 110, 36, 25));
         g2D.fill(new RoundRectangle2D.Double(156, 60, 90, 130, 8, 8));
 

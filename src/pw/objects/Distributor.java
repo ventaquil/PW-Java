@@ -29,6 +29,7 @@ public class Distributor {
         }
 
         if ((((car.getQ() - 7) / 2) + 1) == number) {
+            canGo = false;
             carOn = true;
         }
 
@@ -61,9 +62,14 @@ public class Distributor {
         distributorCollection.add(this);
     }
 
-    public synchronized void free()
+    public synchronized void free(Car car)
     {
-        carOn = false;
+        if (((car.getQ() - 7) / 2) + 1 == number) {
+            s.release();
+
+            carOn = false;
+            canGo = false;
+        }
     }
 
     public synchronized void freeCar()

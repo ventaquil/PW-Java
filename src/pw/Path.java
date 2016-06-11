@@ -172,6 +172,102 @@ public abstract class Path {
         return new Point(224, 161);
     }
 
+    private static Point from12State(Car car)
+    {
+        Integer x = 224;
+        Integer y = 81;
+
+        Integer position = car.getQPosition();
+
+        if (position < 59) {
+            x -= position;
+        } else if (position < 92) {
+            y += position - 59;
+            x -= 59;
+        } else if (position < 230) {
+            y += 92 - 59;
+            x -= position - 92 + 59;
+        } else if (position < 287) {
+            y += position - 230 + 92 - 59;
+            x -= 230 - 92 + 59;
+        } else if (position < 332) {
+            y += 287 - 230 + 92 - 59;
+            x -= position - 287 + 230 - 92 + 59;
+        } else {
+            y += 287 - 230 + 92 - 59;
+            x -= 332 - 287 + 230 - 92 + 59;
+
+            CarsCollection.instance()
+                          .remove(car);
+        }
+
+        return new Point(x, y);
+    }
+
+    private static Point from13State(Car car)
+    {
+        Integer x = 224;
+        Integer y = 121;
+
+        Integer position = car.getQPosition();
+
+        if (position < 59) {
+            x -= position;
+        } else if (position < 66) {
+            y -= position - 59;
+            x -= 59;
+        } else if (position < 204) {
+            y -= 66 - 59;
+            x -= position - 66 + 59;
+        } else if (position < 261) {
+            y += position - 204 - (66 - 59);
+            x -= 204 - 66 + 59;
+        } else if (position < 306) {
+            y += 261 - 204 - (66 - 59);
+            x -= position - 261 + 204 - 66 + 59;
+        } else {
+            y += 261 - 204 - (66 - 59);
+            x -= 306 - 261 + 204 - 66 + 59;
+
+            CarsCollection.instance()
+                          .remove(car);
+        }
+
+        return new Point(x, y);
+    }
+
+    private static Point from14State(Car car)
+    {
+        Integer x = 224;
+        Integer y = 161;
+
+        Integer position = car.getQPosition();
+
+        if (position < 60) {
+            x -= position;
+        } else if (position < 107) {
+            y -= position - 60;
+            x -= 60;
+        } else if (position < 245) {
+            y -= 107 - 60;
+            x -= position - 107 + 60;
+        } else if (position < 302) {
+            y += position - 245 - (107 - 60);
+            x -= 245 - 107 + 60;
+        } else if (position < 347) {
+            y += 302 - 245 - (107 - 60);
+            x -= position - 302 + 245 - 107 + 60;
+        } else {
+            y += 302 - 245 - (107 - 60);
+            x -= 347 - 302 + 245 - 107 + 60;
+
+            CarsCollection.instance()
+                          .remove(car);
+        }
+
+        return new Point(x, y);
+    }
+
     public static Point generatePosition(Car car)
     {
         switch (car.getQ()) {
@@ -199,6 +295,12 @@ public abstract class Path {
                 return from10State(car);
             case 11:
                 return from11State(car);
+            case 12:
+                return from12State(car);
+            case 13:
+                return from13State(car);
+            case 14:
+                return from14State(car);
         }
 
         System.exit(0);
@@ -542,6 +644,9 @@ public abstract class Path {
             case 6:
             case 8:
             case 10:
+            case 12:
+            case 13:
+            case 14:
                 return true;
             case 1:
             case 3:

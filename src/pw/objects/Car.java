@@ -94,6 +94,14 @@ public class Car extends Thread {
         qPosition = 0;
     }
 
+    public void goToExit()
+    {
+        distributor.free(this);
+
+        q = ((q - 7) / 2) + 12;
+        qPosition = 0;
+    }
+
     public void goToFirstDistributor()
     {
         q = 6;
@@ -108,9 +116,7 @@ public class Car extends Thread {
         BuildingSemaphore.instance()
                          .release();
 
-        DistributorCollection.instance()
-                             .get(1 - 1)
-                             .capture(this);
+        distributor.capture(this);
     }
 
     public void goToSecondDistributor()
@@ -127,9 +133,7 @@ public class Car extends Thread {
         BuildingSemaphore.instance()
                          .release();
 
-        DistributorCollection.instance()
-                             .get(2 - 1)
-                             .capture(this);
+        distributor.capture(this);
     }
 
     public void goToThirdDistributor()
@@ -146,9 +150,7 @@ public class Car extends Thread {
         BuildingSemaphore.instance()
                          .release();
 
-        DistributorCollection.instance()
-                             .get(3 - 1)
-                             .capture(this);
+        distributor.capture(this);
     }
 
     /**
@@ -180,6 +182,19 @@ public class Car extends Thread {
 	{
 		while (true) {
             try {
+                switch (q) {
+                    case 7:
+                    case 9:
+                    case 11:
+                        if (distributor.canGo()) {
+                            if (BuildingSemaphore.instance()
+                                                 .tryAcquire()) {
+                                goToExit();
+                            }
+                        }
+                        break;
+                }
+
                 synchronized(this) {
 				    if (Path.increaseQPosition(this)) {
 				        qPosition++;

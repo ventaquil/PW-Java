@@ -73,7 +73,7 @@ public class DistributorCollection {
             try {
                 distributor = distributors.get(i);
 
-                if (distributor.carOn()) {
+                if (distributor.carOn() && !distributor.canGo()) {
                     if (distributor.workerTryLock()) {
                         return distributor;
                     }
