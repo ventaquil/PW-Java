@@ -24,10 +24,10 @@ public class Spawner extends Thread {
             if (q.size() < 3) {
                 q.newCar();
 
-                t.waitCycle((new Random()).nextInt(150) + 30);
-            } else {
-                t.waitCycle((new Random()).nextInt(240) + 120);
+                t.waitCycle(30);
             }
+
+            t.waitCycle((new Random()).nextInt(q.size() * 600));
         }
     }
 
