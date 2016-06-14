@@ -36,22 +36,25 @@ public abstract class PW {
 		Timeline.instance()
 		        .start();
 
-        EntryQueue.instance()
-                  .newCar();
+		Spawner.instance()
+		       .start();
 
-        Timeline.instance()
-                .waitCycle(30);
-        EntryQueue.instance()
-                  .newCar();
-
-        Timeline.instance()
-                .waitCycle(30);
-        EntryQueue.instance()
-                  .newCar();
-
-        Timeline.instance()
-                .waitCycle(50);
-        EntryQueue.instance()
-                  .newCar();
+//        EntryQueue.instance()
+//                  .newCar();
+//
+//        Timeline.instance()
+//                .waitCycle(30);
+//        EntryQueue.instance()
+//                  .newCar();
+//
+//        Timeline.instance()
+//                .waitCycle(30);
+//        EntryQueue.instance()
+//                  .newCar();
+//
+//        Timeline.instance()
+//                .waitCycle(50);
+//        EntryQueue.instance()
+//                  .newCar();
 	}
 }

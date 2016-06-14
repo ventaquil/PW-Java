@@ -28,11 +28,11 @@ public class MainPanel extends JPanel {
 	{
 		super();
 
-		setMinimumSize(new Dimension(600, 300));
+		setMinimumSize(new Dimension(270, 220));
 
-        setMaximumSize(new Dimension(600, 300));
+        setMaximumSize(new Dimension(270, 220));
 
-        setPreferredSize(new Dimension(600, 300));
+        setPreferredSize(new Dimension(270, 220));
 	}
 
 	/**
